@@ -10,12 +10,18 @@
 - Web-сервер: Nginx
 - Окружение: Docker Compose
 
-## Запуск Через Docker
+## Запуск через Docker
 
-Сбор и запуск контейнера:
+Сборка и запуск контейнеров:
 
 ```powershell
 docker-compose up -d --build
+```
+
+Подготовка базы данных:
+
+```powershell
+docker-compose exec backend php artisan migrate:fresh --seed
 ```
 
 После запуска приложение будет доступно по адресам:
@@ -25,11 +31,39 @@ docker-compose up -d --build
 - MySQL с хоста: `127.0.0.1:3307`
 - MySQL внутри Docker: `mysql:3306`
 
-Данные MySQL для локального Docker-окружения:
+## Тестовый пользователь
+
+```text
+email: test@example.com
+password: password
+```
+
+## Доступ к MySQL
 
 ```text
 database: test_spa
 user: test_spa
 password: test_spa
 root password: root
+```
+
+## Полезные команды
+
+Остановить контейнеры:
+
+```powershell
+docker-compose down
+```
+
+Посмотреть логи:
+
+```powershell
+docker-compose logs -f
+```
+
+Пересобрать frontend:
+
+```powershell
+docker-compose build frontend
+docker-compose up -d frontend nginx
 ```
